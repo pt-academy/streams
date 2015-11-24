@@ -17,7 +17,6 @@ public class Pocitac {
     public void setRam(int ram) {
         if ((ram & -ram) == ram) {
             this.ram = ram;
-            this.pamatNaProcesor = (int) ram / pocetProcesorov;
         } else {
             throw new IllegalArgumentException("Cislo nie je mocnina 2");
         }
@@ -27,6 +26,7 @@ public class Pocitac {
     }
     public void setPocetProcesorov(short pocetProcesorov) {
         this.pocetProcesorov = pocetProcesorov;
+        this.pamatNaProcesor = ram / pocetProcesorov;
     }
     public short getTaktovaciaFrekvencia() {
         return taktovaciaFrekvencia;
@@ -52,10 +52,22 @@ public class Pocitac {
     public void setZnacka(String znacka) {
         this.znacka = znacka;
     }
-    public int getPamatNaProcesor() {
-        return pamatNaProcesor;
-    }
-    public void setPamatNaProcesor(int pamatNaProcesor) {
-        this.pamatNaProcesor = pamatNaProcesor;
+
+    @Override
+    public boolean equals(Object arg0) {
+        if (super.equals(arg0)) {
+            return true;
+        }
+        if (arg0 instanceof Pocitac) {
+            if (((Pocitac) arg0).getRam() != this.ram) {
+                return false;
+            }
+            if (((Pocitac) arg0).getPocetProcesorov() != this.pocetProcesorov) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
     }
 }
